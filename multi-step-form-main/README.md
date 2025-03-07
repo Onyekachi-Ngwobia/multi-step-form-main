@@ -99,3 +99,25 @@ We love receiving feedback! We're always looking to improve our challenges and o
 This challenge is completely free. Please share it with anyone who will find it useful for practice.
 
 **Have fun building!** 🚀
+
+
+The HTML file is for a multi-step form with a sidebar that tracks progress through different steps. The form has five steps:
+
+Step 1 (Your Info) – User enters personal details (name, email, phone number).
+Step 2 (Select Plan) – User selects a pricing plan (monthly or yearly).
+Step 3 (Add-ons) – User picks additional services.
+Step 4 (Summary) – Review and confirm selections.
+Step 5 (Success Message) – A confirmation page after submission.
+
+section.form-sidebar → Sidebar for tracking steps.
+section.stp.step-1 → First step: Collects name, email, and phone.
+section.stp.step-2 → Second step: Plan selection.
+section.stp.step-3 → Third step: Add-ons selection.
+section.stp.step-4 → Fourth step: Summary and confirmation.
+section.stp.step-5 → Fifth step: Thank you message.
+Navigation Buttons:
+.prev-step → Go back to the previous step.
+.next-step → Move to the next step.
+.confirm → Finalize submission.
+
+The JavaScript code is responsible for handling the multi-step form's functionality, including navigating between steps, validating input fields, and updating the sidebar step indicators.
