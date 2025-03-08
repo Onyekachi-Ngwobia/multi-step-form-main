@@ -1,3 +1,6 @@
+/* Multi-Step Form Functionality */
+
+// Select necessary DOM elements
 const steps = document.querySelectorAll(".stp");
 const circleSteps = document.querySelectorAll(".step");
 const formInputs = document.querySelectorAll(".step-1 form input");
@@ -6,18 +9,23 @@ const switcher = document.querySelector(".switch");
 const addons = document.querySelectorAll(".box");
 const total = document.querySelector(".total b");
 const planPrice = document.querySelector(".plan-price");
-let time;
-let currentStep = 1;
-let currentCircle = 0;
+
+// State variables
+let time; // Stores billing cycle (monthly/yearly)
+let currentStep = 1; // Tracks current step in form
+let currentCircle = 0; //Tracks active step indicator
 const obj = {
   plan: null,
   kind: null,
   price: null,
-};
+}; // Stores selected plan details
 
+
+// Loop through each step and add event listeners for navigation buttons
 steps.forEach((step) => {
-  const nextBtn = step.querySelector(".next-step");
-  const prevBtn = step.querySelector(".prev-step");
+  const nextBtn = step.querySelector(".next-stp"); //next step button
+  const prevBtn = step.querySelector(".prev-stp"); // Previous step button
+  // handle "Previous step" button click
   if (prevBtn) {
     prevBtn.addEventListener("click", () => {
       document.querySelector(`.step-${currentStep}`).style.display = "none";
@@ -27,6 +35,8 @@ steps.forEach((step) => {
       currentCircle--;
     });
   }
+
+  // Handle "Next step" button click
   nextBtn.addEventListener("click", () => {
     document.querySelector(`.step-${currentStep}`).style.display = "none";
     if (currentStep < 5 && validateForm()) {
@@ -39,6 +49,8 @@ steps.forEach((step) => {
     summary(obj);
   });
 });
+
+// Function to update the summary section
 function summary(obj) {
   const planName = document.querySelector(".plan-name");
   const planPrice = document.querySelector(".plan-price");
@@ -47,6 +59,8 @@ function summary(obj) {
     obj.kind ? "yearly" : "monthly"
   })`;
 }
+
+// Function to validate form inputs in step 1
 function validateForm() {
   let valid = true;
   for (let i = 0; i < formInputs.length; i++) {
@@ -62,6 +76,7 @@ function validateForm() {
   }
   return valid;
 }
+// Function to find label associated with an input field
 function findLabel(el) {
   const idVal = el.id;
   const labels = document.getElementsByTagName("label");
@@ -70,6 +85,7 @@ function findLabel(el) {
   }
 }
 
+// Handle plan selection
 plans.forEach((plan) => {
   plan.addEventListener("click", () => {
     document.querySelector(".selected").classList.remove("selected");
@@ -81,6 +97,8 @@ plans.forEach((plan) => {
   });
 });
 
+
+// Handle billing cycle switch (monthly/yearly)
 switcher.addEventListener("click", () => {
   const val = switcher.querySelector("input").checked;
   if (val) {
@@ -93,6 +111,8 @@ switcher.addEventListener("click", () => {
   switchPrice(val);
   obj.kind = val;
 });
+
+// Handle add-on selection
 addons.forEach((addon) => {
   addon.addEventListener("click", (e) => {
     const addonSelect = addon.querySelector("input");
@@ -110,6 +130,7 @@ addons.forEach((addon) => {
   });
 });
 
+// Function to update pricing when switching billing cycle
 function switchPrice(checked) {
   const yearlyPrice = [90, 120, 150];
   const monthlyPrice = [9, 12, 15];
@@ -118,19 +139,21 @@ function switchPrice(checked) {
     prices[0].innerHTML = `$${yearlyPrice[0]}/yr`;
     prices[1].innerHTML = `$${yearlyPrice[1]}/yr`;
     prices[2].innerHTML = `$${yearlyPrice[2]}/yr`;
-    setTime(true);
+    setTime(true)
   } else {
     prices[0].innerHTML = `$${monthlyPrice[0]}/mo`;
     prices[1].innerHTML = `$${monthlyPrice[1]}/mo`;
     prices[2].innerHTML = `$${monthlyPrice[2]}/mo`;
-    setTime(false);
+    setTime(false)
   }
 }
+
+// Function to display selected add-ons in summary
 function showAddon(ad, val) {
   const temp = document.getElementsByTagName("template")[0];
   const clone = temp.content.cloneNode(true);
   const serviceName = clone.querySelector(".service-name");
-  const servicePrice = clone.querySelector(".service-price");
+  const servicePrice = clone.querySelector(".servic-price");
   const serviceID = clone.querySelector(".selected-addon");
   if (ad && val) {
     serviceName.innerText = ad.querySelector("label").innerText;
@@ -148,11 +171,12 @@ function showAddon(ad, val) {
   }
 }
 
+// Function to calculate total cost
 function setTotal() {
   const str = planPrice.innerHTML;
   const res = str.replace(/\D/g, "");
   const addonPrices = document.querySelectorAll(
-    ".selected-addon .service-price"
+    ".selected-addon .servic-price"
   );
 
   let val = 0;
@@ -162,8 +186,10 @@ function setTotal() {
 
     val += Number(res);
   }
-  total.innerHTML = `$${val + Number(res)}/${time ? "yr" : "mo"}`;
+  total.innerHTML = `$${val + Number(res)}/${time?"yr":"mo"}`;
 }
+
+// Function to set billing cycle state
 function setTime(t) {
-  return (time = t);
+  return time = t;
 }

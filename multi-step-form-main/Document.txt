@@ -1,0 +1,224 @@
+
+
+Multi-Step Form Documentation
+This keeps code organized and readable. 
+Overview
+This project is a multi-step form that guides users through a structured process of selecting a plan, adding optional services, and confirming their subscription. The form includes five steps:
+
+User Information – Collects the user's name, email, and phone number.
+Plan Selection – Allows users to choose between different subscription plans (Arcade, Advanced, Pro) with an option for monthly or yearly billing.
+Add-ons – Users can select additional services to enhance their experience.
+Summary – Displays selected options and the total cost before confirmation.
+Confirmation – Displays a thank-you message upon successful submission.
+
+Technology Used
+HTML: Structure of the form and UI components.
+CSS: Styles for layout, design, and responsiveness.
+JavaScript: Handles form navigation, validation, and interactions.
+
+Folder Structure
+
+/project-folder
+│── /assets
+│   ├── /images (Contains icons and images used)
+│── index.html (Main structure of the form)
+│── style.css (Stylesheet for UI and layout)
+│── script.js (JavaScript for form functionality)
+│── document.txt (This documentation file)
+
+Short Notes on the Multi-Step Form Code (HTML)
+
+1. HTML Structure:
+The document is structured with a sidebar (showing steps) and multiple form sections (steps 1–5).
+Uses a progressive form design where each step collects different user information.
+
+2. Head Section:
+Includes metadata, favicon, Google Fonts, and external CSS & JavaScript links.
+Uses Ubuntu font for styling.
+
+3. Sidebar (Step Indicators):
+Displays four steps with labels (Your Info, Select Plan, Add-ons, Summary).
+Active step is highlighted dynamically.
+
+4. Form Steps:
+Step 1: Collects Name, Email, and Phone Number.
+Step 2: Allows users to select a subscription plan (Arcade, Advanced, Pro).
+Step 3: Lets users choose add-ons (e.g., online service).
+Step 4: Shows a summary of selected options before confirmation.
+Step 5: Displays a thank you message after successful submission.
+
+5. Navigation Buttons:
+"Next Step" moves forward.
+"Go Back" returns to the previous step.
+"Confirm" submits the form.
+
+6. Dynamic Features:
+Billing toggle for monthly/yearly plans.
+Error messages for required fields.
+Price updates based on selection.
+
+Handles navigation between steps.
+Validates user input.
+Toggles between monthly and yearly billing.
+Updates the summary page dynamically.
+
+
+**CSS Code Explanation**
+
+### **Root Variables and Color Palette**
+The `:root` selector defines CSS variables for a consistent color scheme across the website. These variables allow easy theme management by referencing them instead of hardcoded values.
+
+### **Global Reset**
+A universal selector (`*`) is used to ensure consistent spacing and box-sizing for all elements, setting a standard font and removing default padding and margin.
+
+### **Utility Classes**
+- `.hidden`: Hides elements using `display: none;`
+- `.err`: Adds a red border for error indication.
+
+### **Body Styling**
+The `body` is styled with:
+- `display: flex;` to center content
+- `align-items: center;` and `justify-content: center;` for vertical and horizontal centering
+- `min-height: 100vh;` to occupy full viewport height
+
+### **Form Container**
+The form is structured within `.form` and `.form-container`:
+- `.form` sets width, background color, rounded corners, and shadow.
+- `.form-container` utilizes `display: flex;` for layout arrangement.
+
+### **Sidebar Styling**
+- `.form-sidebar` applies a background image and flexbox for vertical stacking.
+- `.circle` is a rounded step indicator.
+- `.active .circle` highlights the current step.
+
+### **Step and Navigation Buttons**
+Each step (`.step`) contains form elements. Navigation buttons like `.next-stp` and `.prev-stp` are styled for a smooth UI flow.
+
+### **Step 1: Input Form Styling**
+- Uses `.step-1` class for layout
+- `input` fields are styled for padding, border, and focus effects
+- `.error` displays validation messages
+
+### **Step 2: Plan Selection**
+- `.step-2` contains multiple selectable `.plan-card` elements.
+- `.plan-card` ensures consistent dimensions and spacing.
+- `.sw-active` applies active styles to selected options.
+
+### **Step 3: Add-on Selection**
+- `.step-3` handles additional service checkboxes.
+- `.box` makes selection boxes visually distinct.
+- `.ad-selected` applies an active border and background color.
+
+### **Step 4: Summary & Confirmation**
+- `.step-4` is responsible for reviewing selections.
+- `.selection-container` displays chosen options with proper spacing.
+- `.total` presents pricing with an emphasis on total cost.
+
+### **Step 5: Final Step**
+- `.step-5` centers the confirmation message.
+- The button inside `.step-5` is hidden as it's not needed.
+
+### **Switcher for Monthly/Yearly Plan Selection**
+- `.switcher` provides toggle functionality.
+- `.switch` and `.slider` define a custom checkbox-based switch.
+- `input:checked + .slider:before` moves the toggle on selection.
+
+### **Responsive Design for Mobile View**
+- The sidebar `.form-sidebar` adjusts to a mobile-friendly layout.
+- `.form` adapts to smaller screen sizes.
+- `.btns` fixes navigation buttons at the bottom.
+- `.plan-card` resizes and shifts to a vertical orientation for better visibility.
+
+
+
+The JavaScript code Overview:
+
+This JavaScript code manages a multi-step form with the following features:
+
+Navigating between form steps (Next & Previous)
+Validating form inputs
+Selecting a pricing plan (monthly/yearly)
+Adding/removing optional add-ons
+Updating and displaying the final pricing summary
+
+
+1. Selecting key elements from the DOM
+steps: Selects all form steps.
+circleSteps: Selects step indicators (circle progress).
+formInputs: Selects form fields in step 1.
+plans: Selects all available plan cards.
+switcher: Selects the toggle switch for monthly/yearly selection.
+addons: Selects all available add-ons.
+total: Selects the total price display.
+planPrice: Selects the selected plan’s price.
+
+2. Tracking Form Progress
+
+time: Determines whether the user selects a monthly or yearly plan.
+currentStep: Tracks which form step the user is on.
+currentCircle: Tracks which progress circle is active.
+obj: Stores the selected plan name, type (monthly/yearly), and price.
+
+3.  Handling Next and Previous Button Clicks
+
+Previous button (prevBtn)
+
+Hides the current step.
+Moves back to the previous step.
+Updates the progress indicator.
+Next button (nextBtn)
+
+Hides the current step.
+Moves forward if form validation passes.
+Updates the progress indicator.
+Calls setTotal() to update the price.
+Calls summary(obj) to display selected options.
+
+4. Displaying Summary of Selected Plan
+
+Updates the summary section with:
+Selected plan name.
+Price (Monthly or Yearly).
+
+5. Form Validation (Checking Required Fields)
+
+Loops through form inputs to check if any field is empty.
+If empty:
+Adds a red error border.
+Displays an error message.
+If filled:
+Removes error styling.
+
+6. Selecting a Pricing Plan
+
+When a plan is clicked, it:
+Removes the previous selected class.
+Adds selected to the new plan.
+Updates the obj with:
+Plan Name
+Plan Price
+
+7. Handling Monthly/Yearly Toggle
+
+Toggles between monthly/yearly pricing.
+Calls switchPrice(val) to update prices.
+
+8. Updating Plan Prices
+
+Updates pricing for monthly/yearly.
+
+9. Adding & Removing Add-ons
+Clicking an addon:
+Toggles selection.
+Calls showAddon(ad, true/false) to add/remove it from the summary.
+
+10. Calculating the Final Price
+
+Extracts numbers from prices.
+Sums plan price and addon prices.
+Updates total price display.
+
+
+
+
+
